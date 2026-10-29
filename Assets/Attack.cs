@@ -19,27 +19,5 @@ public class Attack : MonoBehaviour
     {
         
     }
-    public void zadajDamage()
-    {
-        Debug.Log("dziala");
-        StartCoroutine(ScaleChange(1f));
-    }
-    private IEnumerator ScaleChange(float czas)
-    {
-        Debug.Log("Start");
-        float scale = 0.1f;
-        var startScale = healthBar.localScale;
-        var endScale = new Vector2(startScale.x - 0.1f,1);
-        var elapsed = 0f;
-        
-        while (elapsed < czas)
-        {
-            var t = elapsed / czas;
-            healthBar.localScale = Vector2.Lerp(startScale, endScale, t);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        healthBar.localScale = endScale;
-        Debug.Log("kon");
-    }
+    
 }
