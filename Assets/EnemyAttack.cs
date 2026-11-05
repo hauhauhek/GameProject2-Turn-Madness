@@ -34,6 +34,8 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] GameObject squareczerw;    // pasek zdrowia gracza 2
     [Header("Atak")]
     [SerializeField] Hit[] hits;
+    [Header("Animacje")]
+    [SerializeField] Animator redattack1Animator;
 
     public bool IsAttacking { get; private set; }
 
@@ -72,18 +74,21 @@ public class EnemyAttack : MonoBehaviour
 
         foreach (Hit hit in hits)
         {
+
             nacisniete1 = false;
             nacisniete2 = false;
-            yield return new WaitForSeconds(hit.delayBefore - 0.6f);
+            yield return new WaitForSeconds(hit.delayBefore - 0.866f);
+            redattack1Animator.SetBool("Atak1Start", true);
+
+
+            yield return new WaitForSeconds(0.766f);
+            nacisniete1 = false;
+            nacisniete2 = false;
             
-            indicator1.Play();
-            yield return new WaitForSeconds(0.3f);
-            nacisniete1 = false;
-            nacisniete2 = false;
-            squareczerw.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
             ApplyHit(hit);
-            squareczerw.SetActive(false);
+            redattack1Animator.SetBool("Atak1Start", false);
+
         }
 
         IsAttacking = false;
@@ -106,7 +111,7 @@ public class EnemyAttack : MonoBehaviour
             skryptGracza.ZadajObrazenia(hit.damage, gracz2);
             damage_taken.Play();
         }
-        else if ((hit.target == HitTarget.Player2 || hit.target == HitTarget.Both) && gracz2 != null && nacisniete1) parried.Play();
+        else if ((hit.target == HitTarget.Player2 || hit.target == HitTarget.Both) && gracz2 != null && nacisniete2) parried.Play();
 
 
     }
