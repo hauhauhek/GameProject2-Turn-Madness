@@ -36,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] Hit[] hits;
     [Header("Animacje")]
     [SerializeField] Animator redattack1Animator;
-
+    [SerializeField] Animator blueattack1Animator;
     public bool IsAttacking { get; private set; }
 
     bool nacisniete1, nacisniete2;
@@ -77,17 +77,32 @@ public class EnemyAttack : MonoBehaviour
 
             nacisniete1 = false;
             nacisniete2 = false;
-            yield return new WaitForSeconds(hit.delayBefore - 0.866f);
-            redattack1Animator.SetBool("Atak1Start", true);
+            yield return new WaitForSeconds(hit.delayBefore - 0.8333f);
+            if(hit.target == HitTarget.Player1)
+            {
+                redattack1Animator.SetBool("Atak1Start", true);
+            }
+            if (hit.target == HitTarget.Player2)
+            {
+                blueattack1Animator.SetBool("Atak1Start", true);
+            }
 
 
-            yield return new WaitForSeconds(0.766f);
+
+            yield return new WaitForSeconds(0.7333f);
             nacisniete1 = false;
             nacisniete2 = false;
             
             yield return new WaitForSeconds(0.1f);
             ApplyHit(hit);
-            redattack1Animator.SetBool("Atak1Start", false);
+            if (hit.target == HitTarget.Player1)
+            {
+                redattack1Animator.SetBool("Atak1Start", false);
+            }
+            if (hit.target == HitTarget.Player2)
+            {
+                blueattack1Animator.SetBool("Atak1Start", false);
+            }
 
         }
 
